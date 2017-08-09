@@ -1,4 +1,4 @@
 
 
-Wechat basic support files in this project.
+Wechat basic support files for tri wechat project.
 
