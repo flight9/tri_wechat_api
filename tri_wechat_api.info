@@ -1,0 +1,7 @@
+name = Tri Wechat Api
+description = Basic files of Wechat api.
+core = 7.x
+package = zzzz
+
+
+
