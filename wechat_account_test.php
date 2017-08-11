@@ -10,8 +10,9 @@ define( 'WECHAT_DOMAIN', $use_test_account? 'http://kyxg4z.natappfree.cc': 'http
 define( 'WECHAT_TEMPL_ID_APPROVAL', $use_test_account? 'cLsTPx-bp2QxOI8RZGorZjAhHSf-INaoYkeekufh75w': 'XbX2NvV-D5j6AhED5Pu0lYVFBJXXTnJGZwaTdbTv-S4');
 
 // 路由路径表
-$wccfg_state_path = array(
+$GLOBALS['wccfg_state_path'] = array(
 	'home' => '/',
 	'test' => '/test',
+	'addentry' => '/node/add/data-entry',
 );
 
