@@ -38,8 +38,16 @@ class WeiChat {
             $mem = new Memcached();
             $content = $mem->get($key);
             return $content;
+        } elseif( defined('DRUPAL_ROOT')) {	//for drupal
+            $expire = variable_get('tri_wechat_'.$key.'_expire');
+			if(isset($expire)) {
+				if( time()< $expire) {
+					return variable_get('tri_wechat_'.$key);
+				}
+			}
+			return false;
         } else {
-            //如果token文件存在，则直接读文件
+			//如果token文件存在，则直接读文件
             $file = './'.$key;
             if( file_exists($file)) {
                 $content = file_get_contents($file);
@@ -49,7 +57,7 @@ class WeiChat {
                 }
             }
             return false;
-        }
+		}
     }
     
     /**
@@ -61,14 +69,18 @@ class WeiChat {
         if(defined('RUN_ON_SAE') && RUN_ON_SAE) {
             $mem = new Memcached();
             return $mem->set($key, $value, $expires_in);
+        } elseif( defined('DRUPAL_ROOT')) {	//for drupal
+            variable_set('tri_wechat_'.$key, $value);
+            variable_set('tri_wechat_'.$key.'_expire', time()+$expires_in);
+			return true;
         } else {
-            $file = './'.$key;
+			$file = './'.$key;
             $js_obj = array(
                 $key        => $value,
                 'expires_in'=> $expires_in,
             );
             return file_put_contents($file, json_encode($js_obj));
-        }
+		}
     }
 
     /**
